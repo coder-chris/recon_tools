@@ -1,5 +1,7 @@
 require "test/unit/assertions"
 require "../lib/recon_tools"
+require "../lib/recon_tools/jira_connect"
+require "../lib/recon_tools/google_sheets_connect"
 
 include Test::Unit::Assertions
 
@@ -73,8 +75,47 @@ module ReconToolsTest
     puts "Tests Completed"
   end
 
+  def run_integration_tests()
+    token = ENV['RECON_TOOLS_JIRA_TOKEN']
+    email = ENV['RECON_TOOLS_JIRA_EMAIL']
+    #if token="" or email= ""
+    assert_not_equal nil, token, "Token not set as environment variable"
+    assert_not_equal nil, email, "email not set as environment variable"
+    jira_connect = JiraConnect.new(email, token)
+
+    puts "run_integration_tests"
+    components = jira_connect.get_jira_components
+    #puts components
+    puts "run_integration_tests"
+    puts "run_integration_tests"
+    puts "run_integration_tests"
+    components_from_jira = jira_connect.parseComponentsJSON(JSON.pretty_generate(components))
+    components_from_jira = components_from_jira.each { |e| e.delete_at(0)}
+    puts "end run_integration_tests"
+
+    googlesheets_connect = GoogleSheetsConnect.new()
+    sheet_data = googlesheets_connect.read_sheet_data "Recon Tools Test Data"
+    sheet_data2 = []
+    sheet_data.each do |row|
+      new_row = []
+      row.each do |element|
+        new_row.push(element)
+      end
+      sheet_data2.push(new_row)
+    end
+    sheet_data2.each { |e| e.delete_at(0)}
+    #sheet_data3 = sheet_data2.each { |e| e.delete_at(0)}
+
+    #puts "sheets"
+    #sheet_data3.each { |e| e.delete_at(0)}
+    #puts sheet_data2
+    assert_equal components_from_jira, sheet_data2, "compare sheets to JIRA"
+  end
 
 end
 
 include ReconToolsTest
 run_tests()
+puts "Starting Integration Tests"
+run_integration_tests()
+puts "Ending Integration Tests"

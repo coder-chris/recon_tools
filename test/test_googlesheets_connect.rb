@@ -10,38 +10,31 @@ require "google/apis/sheets_v4"
 require "google_docs"
 
 module GoogleSheetsConnectTest
-  def run_integration_tests_SAMPLECODE()
-    #Set Environment Variables in shell eg...
-    #export RECON_TOOLS_JIRA_TOKEN=<TOKEN>
-    #echo "$RECON_TOOLS_JIRA_TOKEN"
-    #export RECON_TOOLS_JIRA_EMAIL=name@domain.com
-    #echo "$RECON_TOOLS_JIRA_EMAIL"
-    token = ENV['RECON_TOOLS_JIRA_TOKEN']
-    email = ENV['RECON_TOOLS_JIRA_EMAIL']
-    #if token="" or email= ""
-    assert_not_equal nil, token, "Token not set as environment variable"
-    assert_not_equal nil, email, "email not set as environment variable"
-    jira_connect = JiraConnect.new(email, token)
-    componentjson = jira_connect.get_jira_components
-    jira_connect.save_jira_components componentjson, "componentlist.json"
-    #puts jira_connect.get_cached_json("/componentlist.json")
-    #assert_equal "Expected", "actual", "expected actual test"
-    assert_equal JSON.parse(jira_connect.get_cached_json("componentlist.json")), componentjson, "Check JIRA Matches Sample"
-  end
-
-
-  def run_unit_tests
+  def run_integration_tests
     jira_connect = JiraConnect.new("", "")
     sample_component_json = jira_connect.get_sample_json("sample_component_list.json")
     sample_parsed_component_with_timestaps_json = jira_connect.get_sample_json("sample_parsed_components_with_time_stamps.json")
 
+    #move out as it's not unit test...
     googlesheets_connect = GoogleSheetsConnect.new()
-    googlesheets_connect.insert_data JSON.parse(sample_parsed_component_with_timestaps_json)
+    googlesheets_connect.insert_data JSON.parse(sample_parsed_component_with_timestaps_json), "Recon Tools Test Data"
     #assert_equal expected , actual,  "Check parsing of component list (without time stamps)"
+  end
+
+
+  def test_insert
+    googlesheets_connect = GoogleSheetsConnect.new()
+    rows = googlesheets_connect.read_sheet_data "Recon Tools Test Data"
+    puts rows
+    data_updates = [
+      [1, 2, 3],
+      [2, 0, "Hello - Update From Script"],
+    ]
+    googlesheets_connect.update_data  data_updates, "Recon Tools Test Data"
   end
 end
 
 include GoogleSheetsConnectTest
-#run_integration_tests()
-run_unit_tests()
+run_integration_tests()
+#test_insert()
 puts "Google Sheets Tests passed"
