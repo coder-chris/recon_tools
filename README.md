@@ -31,7 +31,6 @@
 Instructions: https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/
 
 - Log in to https://id.atlassian.com/manage/api-tokens.
-
 - Click 'Create API token.'
 - From the dialog that appears, enter a memorable and concise 'Label' for your token and click 'Create.'
 - Use 'Copy to clipboard' and paste the token into the JIRA API token field on the JIRA account user page.
