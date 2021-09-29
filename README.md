@@ -14,13 +14,13 @@
 
  Official Instructions: https://developers.google.com/workspace/guides/create-credentials
 
- To obtain credentials for your service account:
- Click on your newly-create service account.
- Click Keys.
- Click Add key > Create new key. The "Create private key" dialog appears.
- Select JSON.
- Click Create. ...
- Click Close.
+-  To obtain credentials for your service account:
+- Click on your newly-create service account.
+-  Click Keys.
+-  Click Add key > Create new key. The "Create private key" dialog appears.
+-  Select JSON.
+-  Click Create. ...
+-  Click Close.
 
 #### Give Access To The Specific Sheet
 
@@ -30,10 +30,11 @@
 
 Instructions: https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/
 
-Log in to https://id.atlassian.com/manage/api-tokens.
-Click 'Create API token.'
-From the dialog that appears, enter a memorable and concise 'Label' for your token and click 'Create.'
-Use 'Copy to clipboard' and paste the token into the JIRA API token field on the JIRA account user page.
+- Log in to https://id.atlassian.com/manage/api-tokens.
+
+- Click 'Create API token.'
+- From the dialog that appears, enter a memorable and concise 'Label' for your token and click 'Create.'
+- Use 'Copy to clipboard' and paste the token into the JIRA API token field on the JIRA account user page.
 
 #### Set Environment Variables in shell
 
