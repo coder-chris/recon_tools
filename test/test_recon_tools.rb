@@ -101,7 +101,17 @@ module ReconToolsTest
     #puts "sheets"
     #sheet_data3.each { |e| e.delete_at(0)}
     #puts sheet_data2
-    assert_equal components_from_jira, sheet_data, "compare sheets to JIRA"
+    #assert_equal components_from_jira, sheet_data, "compare sheets to JIRA"
+
+    recon_tools = ReconTools.new(sheet_data, components_from_jira)
+    puts recon_tools.updated_array
+    puts ""
+    puts ""
+    puts recon_tools.changelog
+    puts ""
+    puts recon_tools.updates
+
+    googlesheets_connect.update_specific_cells(recon_tools.updates, "Recon Tools Test Data", 1)
   end
 
 end

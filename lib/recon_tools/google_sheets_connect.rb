@@ -36,6 +36,17 @@ class GoogleSheetsConnect
     worksheet.save
   end
 
+  def update_specific_cells(data_to_insert, sheet_name, colOffset=0)
+    spreadsheet = @session.spreadsheet_by_title(sheet_name)
+    worksheet = spreadsheet.worksheets.first
+
+    data_to_insert.each do |update|
+        worksheet[update[0]+1, update[1]+1+colOffset]= update[2]
+        #puts "#{row}, #{col} = #{value}"
+    end
+    worksheet.save
+  end
+
   def read_sheet_data(sheetName, skip_rows=0)
     spreadsheet = @session.spreadsheet_by_title(sheetName)
     worksheet = spreadsheet.worksheets.first
