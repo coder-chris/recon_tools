@@ -39,7 +39,20 @@ class GoogleSheetsConnect
   def read_sheet_data(sheetName, skip_rows=0)
     spreadsheet = @session.spreadsheet_by_title(sheetName)
     worksheet = spreadsheet.worksheets.first
-    worksheet.rows skip_rows
+    unfreeze_array(worksheet.rows(skip_rows))
+
+  end
+
+  def unfreeze_array(arrayIn2d)
+    unfrozen_array = []
+    arrayIn2d.each do |row|
+      new_row = []
+      row.each do |element|
+        new_row.push(element)
+      end
+      unfrozen_array.push(new_row)
+    end
+    unfrozen_array
   end
 
   def update_test_sheet(sheetName)

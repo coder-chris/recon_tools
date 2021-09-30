@@ -95,21 +95,13 @@ module ReconToolsTest
 
     googlesheets_connect = GoogleSheetsConnect.new()
     sheet_data = googlesheets_connect.read_sheet_data "Recon Tools Test Data"
-    sheet_data2 = []
-    sheet_data.each do |row|
-      new_row = []
-      row.each do |element|
-        new_row.push(element)
-      end
-      sheet_data2.push(new_row)
-    end
-    sheet_data2.each { |e| e.delete_at(0)}
+    sheet_data.each { |e| e.delete_at(0)}
     #sheet_data3 = sheet_data2.each { |e| e.delete_at(0)}
 
     #puts "sheets"
     #sheet_data3.each { |e| e.delete_at(0)}
     #puts sheet_data2
-    assert_equal components_from_jira, sheet_data2, "compare sheets to JIRA"
+    assert_equal components_from_jira, sheet_data, "compare sheets to JIRA"
   end
 
 end
