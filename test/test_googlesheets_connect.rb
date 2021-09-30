@@ -1,7 +1,8 @@
+require 'minitest/autorun'
 require "test/unit/assertions"
-require "../lib/recon_tools"
-require "../lib/recon_tools/jira_connect"
-require "../lib/recon_tools/google_sheets_connect"
+require "recon_tools"
+require "recon_tools/jira_connect"
+require "recon_tools/google_sheets_connect"
 
 include Test::Unit::Assertions
 require "google_drive"
@@ -9,10 +10,10 @@ require "google_drive"
 require "google/apis/sheets_v4"
 require "google_docs"
 
-module GoogleSheetsConnectTest
-  def run_integration_tests
+class GoogleSheetsConnectTest < Minitest::Test
+  def test_run_integration
     jira_connect = JiraConnect.new("", "")
-    sample_component_json = jira_connect.get_sample_json("sample_component_list.json")
+    #sample_component_json = jira_connect.get_sample_json("sample_component_list.json")
     sample_parsed_component_with_timestaps_json = jira_connect.get_sample_json("sample_parsed_components_with_time_stamps.json")
 
     #move out as it's not unit test...
@@ -22,7 +23,7 @@ module GoogleSheetsConnectTest
   end
 
 
-  def test_insert
+  def insert_data
     googlesheets_connect = GoogleSheetsConnect.new()
     rows = googlesheets_connect.read_sheet_data "Recon Tools Test Data"
     puts rows
@@ -34,7 +35,7 @@ module GoogleSheetsConnectTest
   end
 end
 
-include GoogleSheetsConnectTest
-run_integration_tests()
+#googlesheets_tests = GoogleSheetsConnectTes.new()
+#googlesheets_tests.run_integration_tests()
 #test_insert()
-puts "Google Sheets Tests passed"
+#puts "Google Sheets Tests passed"

@@ -1,10 +1,11 @@
+require 'minitest/autorun'
 require "test/unit/assertions"
-require "../lib/recon_tools"
-require "../lib/recon_tools/jira_connect"
+require "recon_tools"
+require "recon_tools/jira_connect"
 
 include Test::Unit::Assertions
 
-module JiraConnectTest
+class JiraConnectTest < Minitest::Test
   def run_integration_tests()
     #Set Environment Variables in shell eg...
     #export RECON_TOOLS_JIRA_TOKEN=<TOKEN>
@@ -43,7 +44,7 @@ module JiraConnectTest
   end
 end
 
-include JiraConnectTest
-run_integration_tests()
-run_unit_tests()
-puts "Tests passed"
+#include JiraConnectTest
+#run_integration_tests()
+#run_unit_tests()
+#puts "Tests passed"

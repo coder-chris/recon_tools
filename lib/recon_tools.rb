@@ -5,6 +5,9 @@ class ReconTools
     :new_records, :deleted_records, :updated_records, :matched_records, :duplicate_data1_records, :duplicate_data2_records,
     :updated_array, :updates, :changelog
 
+  def hello_world_test()
+    puts "Hello World"
+  end
 
   def  initialize(array_data_in1, array_data_in2)
     @data_in1 = {}

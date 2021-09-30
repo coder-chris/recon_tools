@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version               = ReconTool::VERSION
   spec.authors               = ['Chris Rowe']
   spec.email                 = ['coder-chris-github@gmail.com']
-  spec.summary               = 'Recon and Merge Support Tools'
-  spec.description           = 'Easily compare, update and merge datasets'
+  spec.summary               = 'recon_tools: Tools to support importing, exporting and reconciliation of data'
+  spec.description           = 'recon_tools: Tools to support importing, exporting and reconciliation of data from JIRA, GoogleSheets and more..'
   spec.homepage              = 'https://github.com/coder-chris/recon_recontool'
   spec.license               = 'MIT'
   spec.platform              = Gem::Platform::RUBY

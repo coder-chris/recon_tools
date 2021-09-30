@@ -1,12 +1,13 @@
+require 'minitest/autorun'
 require "test/unit/assertions"
-require "../lib/recon_tools"
-require "../lib/recon_tools/jira_connect"
-require "../lib/recon_tools/google_sheets_connect"
+require "recon_tools"
+require "recon_tools/jira_connect"
+require "recon_tools/google_sheets_connect"
 
 include Test::Unit::Assertions
 
 
-module ReconToolsTest
+class ReconToolsTest < Minitest::Test
   def run_tests()
     arrays1 = [
       ["a", 1, 3],
@@ -116,8 +117,8 @@ module ReconToolsTest
 
 end
 
-include ReconToolsTest
-run_tests()
-puts "Starting Integration Tests"
-run_integration_tests()
-puts "Ending Integration Tests"
+#include ReconToolsTest
+#run_tests()
+#puts "Starting Integration Tests"
+#run_integration_tests()
+#puts "Ending Integration Tests"
