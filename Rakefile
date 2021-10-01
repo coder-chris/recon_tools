@@ -4,5 +4,11 @@ Rake::TestTask.new do |t|
   t.libs << 'test'
 end
 
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.verbose = true
+end
+
+
 desc "Run tests"
 task :default => :test

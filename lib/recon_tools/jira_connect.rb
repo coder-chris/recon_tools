@@ -49,11 +49,13 @@ class JiraConnect
   end
 
   def get_cached_json(fileName)
-    data = File.read("sample_data/cache/"+fileName)
+    data = File.read("test/sample_data/cache/"+fileName)
   end
 
   def get_sample_json(fileName)
-    data = File.read("sample_data/"+fileName)
+    #puts "Current Directory"
+    #puts Dir.pwd
+    data = File.read("test/sample_data/"+fileName)
   end
 
   def get_jira_api(uriIn)

@@ -26,7 +26,7 @@ class JiraConnectTest < Minitest::Test
   end
 
 
-  def run_unit_tests
+  def run_unit_tests()
     jira_connect = JiraConnect.new("", "")
     sample_component_json = jira_connect.get_sample_json("sample_component_list.json")
     sample_parsed_component_no_timestaps_json = jira_connect.get_sample_json("sample_parsed_components_no_time_stamps.json")

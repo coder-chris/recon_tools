@@ -8,7 +8,7 @@ require "google_docs"
 
 class GoogleSheetsConnect
   @session
-  def initialize(json_crednetials = "../config/credentials.json")
+  def initialize(json_crednetials = "config/credentials.json")
     #credentials = File.read("../config/credentials.json")
     #puts credentials
     @session = GoogleDrive::Session.from_service_account_key(json_crednetials)
