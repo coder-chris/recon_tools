@@ -1,8 +1,8 @@
 require 'minitest/autorun'
 require "test/unit/assertions"
-require "recon_tools"
-require "recon_tools/jira_connect"
-require "recon_tools/google_sheets_connect"
+require "./lib/recon_tools"
+require "./lib/recon_tools/jira_connect"
+require "./lib/recon_tools/google_sheets_connect"
 
 include Test::Unit::Assertions
 
@@ -10,6 +10,7 @@ include Test::Unit::Assertions
 class ReconToolse2eTest < Minitest::Test
   def initialize(name)
     super (name)
+    puts "Directory"+Dir.pwd
   end
 
   # Connects to JIRA and gets list of components_from_jira
@@ -25,13 +26,11 @@ class ReconToolse2eTest < Minitest::Test
     assert_not_equal nil, email, "email not set as environment variable"
     jira_connect = JiraConnect.new(email, token)
 
-    puts "run_integration_tests"
+
     components = jira_connect.get_jira_components
-    #puts components
-    puts "run_integration_tests"
+
     components_from_jira = jira_connect.parseComponentsJSON(JSON.pretty_generate(components))
     components_from_jira = components_from_jira.each { |e| e.delete_at(0)}
-    puts "end run_integration_tests"
 
     #puts Dir.pwd
     googlesheets_connect = GoogleSheetsConnect.new("config/credentials.json")
@@ -39,25 +38,31 @@ class ReconToolse2eTest < Minitest::Test
     sheet_data.each { |e| e.delete_at(0)}
 
     recon_tools = ReconTools.new(sheet_data, components_from_jira)
+    puts ""
+    puts "updated_array"
     puts recon_tools.updated_array
     puts ""
-    puts ""
+    puts "changelog"
     puts recon_tools.changelog
     puts ""
+    puts "updates"
     puts recon_tools.updates
+    puts ""
 
-    googlesheets_connect.update_specific_cells(recon_tools.updates, "Recon Tools Test Data", 1)
+    #Duplicate original data
+    sheet_id = googlesheets_connect.duplicate_worksheet("Recon Tools Test Data", 0)
 
+    googlesheets_connect.update_specific_cells(recon_tools.updates, "Recon Tools Test Data", sheet_id, 1)
 
-    sheet_data = googlesheets_connect.read_sheet_data "Recon Tools Test Data"
-    sheet_data.each { |e| e.delete_at(0)}
+    sheet_data_new = googlesheets_connect.read_sheet_data "Recon Tools Test Data", sheet_id
+    sheet_data_new.each { |e| e.delete_at(0)}
 
-    assert_equal components_from_jira, sheet_data, "Compare updated data from sheet with JIRA"
+    assert_equal components_from_jira, sheet_data_new, "Compare updated data from sheet with JIRA"
     puts "ending e2e tests"
   end
 
 end
 
 e2e = ReconToolse2eTest.new("test_e2e")
-e2e.test_e2e()
+# Extended from TestCase so initializing automatically runs tests
 puts "test_e2e"
