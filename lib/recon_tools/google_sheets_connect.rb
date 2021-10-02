@@ -64,6 +64,16 @@ class GoogleSheetsConnect
     worksheet.save
   end
 
+  def write_column(data_to_insert, sheet_name, tabNumber=0, colOffset=0)
+    spreadsheet = @session.spreadsheet_by_title(sheet_name)
+    worksheet = spreadsheet.worksheets[tabNumber]
+
+    data_to_insert.each_with_index do |value, index|
+        worksheet[index+1, 1+colOffset]= "#{DateTime::now} #{value} \n"+ worksheet[index+1, 1+colOffset]
+    end
+    worksheet.save
+  end
+
   def read_sheet_data(sheetName, tabNumber=0, skip_rows=0)
     spreadsheet = @session.spreadsheet_by_title(sheetName)
     worksheet = spreadsheet.worksheets[tabNumber]

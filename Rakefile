@@ -1,5 +1,5 @@
 require 'rake/testtask'
-require 'recon_tools'
+require './lib/recon_tools'
 
 task :test do
   Rake::TestTask.new do |t|

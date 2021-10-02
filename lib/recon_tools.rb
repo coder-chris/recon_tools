@@ -60,7 +60,7 @@ class ReconTools
         if @data_in2[record[0]] == record
           changelog << "No change #{record}"
         else
-          changelog << "Updated#{record}"
+          changelog << "Updated from #{record}"
         end
       elsif @deleted_records.key?(record[0])
         #puts "deleted data"
@@ -80,6 +80,7 @@ class ReconTools
 
   def generate_updates(updated_array)
     updates =  []
+    updates_with_diff =  []
     updated_array.each_with_index { |val, index|
       #puts " updated_array #{val}"
       val.each_with_index { |val2, index2|
@@ -90,12 +91,13 @@ class ReconTools
         else
           #puts "doesn't matche"
           updates  << [index, index2, updated_array[index][index2]]
+          #updates_with_diff << [index, index2, "Updated #{@array_data_in1[index][index2]} #{updated_array[index][index2]]}"]
         end
         }
       }
     #puts "Updates #{updates}"
     #puts "end generate_updates"
-    updates
+    updates #, updates_with_diff
   end
 
   def get_matching_records(data_in1, data_in2)

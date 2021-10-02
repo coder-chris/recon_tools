@@ -46,7 +46,7 @@ class ReconToolsTest < Minitest::Test
 
     difflog =[
       "No change [\"a\", 1, 3]",
-      "Updated[\"b\", 2, 4]",
+      "Updated from [\"b\", 2, 4]",
       "Deleted [\"d\", 7, 8]",
       "New [\"c\", 4, 5]",
       "New [\"e\", 9, 10]"
