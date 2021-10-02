@@ -8,7 +8,7 @@ include Test::Unit::Assertions
 
 
 class ReconToolsTest < Minitest::Test
-  def run_tests()
+  def test_unit()
     arrays1 = [
       ["a", 1, 3],
       ["b", 2, 4],
