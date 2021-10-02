@@ -39,7 +39,7 @@ class ReconToolse2eTest < Minitest::Test
 
     #puts Dir.pwd
     googlesheets_connect = GoogleSheetsConnect.new("config/credentials.json")
-    sheet_data = googlesheets_connect.read_sheet_data sheet_name, 5
+    sheet_data = googlesheets_connect.read_sheet_data sheet_name, 0, 0, 5
     sheet_data.each { |e| e.delete_at(0)}
 
     recon_tools = ReconTools.new(sheet_data, components_from_jira)
@@ -63,12 +63,12 @@ class ReconToolse2eTest < Minitest::Test
 
     googlesheets_connect.update_specific_cells(recon_tools.updates, sheet_name, sheet_id, 1)
 
-    sheet_data_new = googlesheets_connect.read_sheet_data sheet_name, sheet_id
+    sheet_data_new = googlesheets_connect.read_sheet_data sheet_name, sheet_id, 0, 5
     sheet_data_new.each { |e| e.delete_at(0)}
 
     #assert_equal components_from_jira, sheet_data_new, "Compare updated data from sheet with JIRA"
 
-    googlesheets_connect.write_column recon_tools.changelog, sheet_name, sheet_id, 6
+    googlesheets_connect.write_column recon_tools.changelog, sheet_name, sheet_id, 5
 
     puts "ending e2e tests"
   end

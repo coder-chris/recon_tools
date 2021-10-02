@@ -74,10 +74,23 @@ class GoogleSheetsConnect
     worksheet.save
   end
 
-  def read_sheet_data(sheetName, tabNumber=0, skip_rows=0)
+  def read_sheet_data(sheetName, tabNumber=0, skip_rows=0, columns=0)
     spreadsheet = @session.spreadsheet_by_title(sheetName)
+    puts sheetName
     worksheet = spreadsheet.worksheets[tabNumber]
-    unfreeze_array(worksheet.rows(skip_rows))
+    puts worksheet
+    data = []
+    frozen_data = worksheet.rows
+    data = unfreeze_array(frozen_data)
+    if columns>0
+      data2 = []
+      data.each do |row|
+        data2 << row.first(columns)
+      end
+    else
+      data2 = data
+    end
+    data2
   end
 
   def unfreeze_array(arrayIn2d)
