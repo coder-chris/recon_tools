@@ -26,7 +26,7 @@ class ReconServices
   # Does a reconciliation of the data
   # Makes updates to the data on the sheet with the new data from JIRA
   # Rereads data from the sheet and confirms the same as from JIRA
-  def jira_googlesheets_reconcile_and_update(sheet_name, sheet_col_start, sheet_col_end, copy_flag=false,
+  def jira_googlesheets_reconcile_and_update(sheet_name, tab_number, sheet_col_start, sheet_col_end, copy_flag=false,
                                              company_url_base, project, jira_col_start, jira_col_end)
     components_from_jira = get_jira_data company_url_base, project, jira_col_start, jira_col_end
     #puts Dir.pwd
@@ -46,20 +46,20 @@ class ReconServices
 
 
 
-    sheet_id = 0
+    sheet_id = tab_number
 
     if copy_flag
       #Duplicate original data
-      sheet_id = googlesheets_connect.duplicate_worksheet(sheet_name, 0)
+      sheet_id = googlesheets_connect.duplicate_worksheet(sheet_name, tab_number)
     end
 
-    googlesheets_connect.update_specific_cells(recon_tools.updates, sheet_name, sheet_id, 1)
+    googlesheets_connect.update_specific_cells(recon_tools.updates, sheet_name, sheet_id, sheet_col_start)
 
     #sheet_data_new = googlesheets_connect.read_sheet_data sheet_name, sheet_id, 0, 5
     #sheet_data_new.each { |e| e.delete_at(0)}
     #assert_equal components_from_jira, sheet_data_new, "Compare updated data from sheet with JIRA"
 
-    googlesheets_connect.write_column recon_tools.changelog, sheet_name, sheet_id, 5
+    googlesheets_connect.write_column recon_tools.changelog, sheet_name, sheet_id, sheet_col_end
 
     puts "ending e2e tests"
   end
