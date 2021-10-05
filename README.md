@@ -2,9 +2,6 @@
  recon_tools: Tools to support importing, exporting and reconciliation of data from JIRA, GoogleSheets and more..
 
 ## Functional Todos
-- Extend recon_tools with methods to pick subsets of data
-- Extend recon_services - make abstract so key values are passed in
-- Abstract get_jira_components and get_jira_issues to take URL and project as parameters
 
 
 ## Project Todos
