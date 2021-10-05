@@ -19,12 +19,17 @@ class JiraConnect
     @token = token
   end
 
-  def get_jira_components_from_cache(filename)
 
+  def get_jira_components(company_url_base, project)
+    uriString="https://#{company_url_base}.atlassian.net/rest/api/3/project/#{project}/components"
+    data = get_jira_api(uriString)
+    #puts data
+    data
   end
 
-  def get_jira_components()
-    uriString="https://leadtechie.atlassian.net/rest/api/3/project/TEST/components"
+
+  def get_jira_issues(company_url_base, project)
+    uriString="https://#{company_url_base}.atlassian.net/rest/api/2/search?jql=project=#{project}&maxResults=1000"
     data = get_jira_api(uriString)
     #puts data
     data

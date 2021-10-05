@@ -16,7 +16,9 @@ class ReconToolse2eTest < Minitest::Test
 
 
   def test_e2e()
-    jira_googlesheets_reconcile_and_update "Recon Tools Test Data", false
+    recon_services = ReconServices.new()
+    recon_services.jira_googlesheets_reconcile_and_update "Recon Tools Test Data", 1, 5, false,
+                                            "leadtechie", "TEST", 1, 5
   end
 
   # Connects to JIRA and gets list of components_from_jira
@@ -24,10 +26,10 @@ class ReconToolse2eTest < Minitest::Test
   # Does a reconciliation of the data
   # Makes updates to the data on the sheet with the new data from JIRA
   # Rereads data from the sheet and confirms the same as from JIRA
-  def jira_googlesheets_reconcile_and_update(sheet_name, copy_flag=false)
-    recon_services = ReconServices.new()
-    recon_services.jira_googlesheets_reconcile_and_update sheet_name, copy_flag
-  end
+  #def jira_googlesheets_reconcile_and_update(sheet_name, copy_flag=false)
+  #   recon_services = ReconServices.new()
+  #  recon_services.jira_googlesheets_reconcile_and_update sheet_name, copy_flag
+  #end
 
 end
 
