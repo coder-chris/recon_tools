@@ -36,18 +36,18 @@ class JiraConnect
   end
 
   def parseComponentsJSON(data)
-      results = []
-      jsondata=JSON.parse(data)
-      jsondata.each do |hash|
-        results.push( [ DateTime::now,
-                     hash["id"],
-                     hash["name"],
-                     hash['lead'] ? hash['lead']['displayName'] : "<No Owner>",
-                     hash['description']?hash['description']:'<No Description>'
-                   ])
-      end
-      results
+    results = []
+    jsondata=JSON.parse(data)
+    jsondata.each do |hash|
+      results.push( [ DateTime::now,
+                   hash["id"],
+                   hash["name"],
+                   hash['lead'] ? hash['lead']['displayName'] : "<No Owner>",
+                   hash['description']?hash['description']:'<No Description>'
+                 ])
     end
+    results
+  end
 
   def save_jira_components(data, fileName)
     File.open("sample_data/cache/"+fileName, 'w') {|f| f.write(JSON.pretty_generate(data)) }
@@ -55,12 +55,14 @@ class JiraConnect
 
   def get_cached_json(fileName)
     data = File.read("test/sample_data/cache/"+fileName)
+    data
   end
 
   def get_sample_json(fileName)
     #puts "Current Directory"
     #puts Dir.pwd
     data = File.read("test/sample_data/"+fileName)
+    data
   end
 
   def get_jira_api(uriIn)
@@ -76,8 +78,8 @@ class JiraConnect
 
       #puts response.body
 
-
       data = JSON.parse(response.body)
+      data
     end
   end
 

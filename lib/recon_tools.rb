@@ -41,7 +41,7 @@ class ReconTools
     arrayIn.each{ |record|
       if data_hash.key?(record[0])
         duplicates << record
-      elsif
+      else
         data_hash[record[0]]=record
       end
     }
@@ -80,7 +80,7 @@ class ReconTools
 
   def generate_updates(updated_array)
     updates =  []
-    updates_with_diff =  []
+    #updates_with_diff =  []
     updated_array.each_with_index { |val, index|
       #puts " updated_array #{val}"
       val.each_with_index { |val2, index2|
