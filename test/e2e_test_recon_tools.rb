@@ -17,7 +17,7 @@ class ReconToolse2eTest < Minitest::Test
 
   def test_e2e()
     recon_services = ReconServices.new()
-    recon_services.jira_googlesheets_reconcile_and_update "Recon Tools Test Data", 0, 1, 5, false, "config/credentials.json",
+    recon_services.jira_googlesheets_reconcile_and_update "Recon Tools Test Data", 0, 1, 5, false, true, "config/credentials.json",
                                             "leadtechie", "TEST", 1, 5
   end
 
