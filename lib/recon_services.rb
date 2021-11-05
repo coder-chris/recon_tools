@@ -31,8 +31,10 @@ class ReconServices
   def jira_googlesheets_reconcile_and_update(sheet_name, tab_number, sheet_col_start, sheet_col_end, copy_flag=false,
                                              company_url_base, project, jira_col_start, jira_col_end)
     @logger.info "Starting e2e tests in jira_googlesheets_reconcile_and_update"
+    @logger.info "Connecting to JIRA and gets list of components_from_jira"
     components_from_jira = get_jira_data company_url_base, project, jira_col_start, jira_col_end
     #puts Dir.pwd
+    @logger.info "Connecting to GoogleSheets and reads list from matched_records"
     googlesheets_connect = GoogleSheetsConnect.new("config/credentials.json")
     sheet_data = googlesheets_connect.read_sheet_data sheet_name, 0, 0, sheet_col_end
     sheet_data = sheet_data.map { |e| e[sheet_col_start..sheet_col_end]}
@@ -45,6 +47,7 @@ class ReconServices
     @logger.debug components_from_jira
     @logger.debug "components_from_jira"
 
+    @logger.info "Reconciling the data"
     recon_tools = ReconTools.new(sheet_data, components_from_jira)
 
 
@@ -56,6 +59,7 @@ class ReconServices
       sheet_id = googlesheets_connect.duplicate_worksheet(sheet_name, tab_number)
     end
 
+    @logger.info "Updating he data on the sheet with the new data from JIRA"
     googlesheets_connect.update_specific_cells(recon_tools.updates, sheet_name, sheet_id, sheet_col_start)
 
     #sheet_data_new = googlesheets_connect.read_sheet_data sheet_name, sheet_id, 0, 5
