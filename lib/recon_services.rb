@@ -1,8 +1,10 @@
+require 'logging'
 # https://dev.to/exampro/testunit-writing-test-code-in-ruby-part-1-of-3-44m2
 
 class ReconServices
   def initialize
-
+    @logger = Logging.logger(STDOUT)
+    @logger.level = :info
   end
 
   def get_jira_data(company_url_base = "leadtechie", project = "TEST", jira_col_start, jira_col_end)
@@ -28,19 +30,20 @@ class ReconServices
   # Rereads data from the sheet and confirms the same as from JIRA
   def jira_googlesheets_reconcile_and_update(sheet_name, tab_number, sheet_col_start, sheet_col_end, copy_flag=false,
                                              company_url_base, project, jira_col_start, jira_col_end)
+    @logger.info "Starting e2e tests in jira_googlesheets_reconcile_and_update"
     components_from_jira = get_jira_data company_url_base, project, jira_col_start, jira_col_end
     #puts Dir.pwd
     googlesheets_connect = GoogleSheetsConnect.new("config/credentials.json")
     sheet_data = googlesheets_connect.read_sheet_data sheet_name, 0, 0, sheet_col_end
     sheet_data = sheet_data.map { |e| e[sheet_col_start..sheet_col_end]}
 
-    puts "sheet_data"
-    puts sheet_data
-    puts "sheet_data"
+    @logger.debug "sheet_data"
+    @logger.debug sheet_data
+    @logger.debug "sheet_data"
 
-    puts "components_from_jira"
-    puts components_from_jira
-    puts "components_from_jira"
+    @logger.debug "components_from_jira"
+    @logger.debug components_from_jira
+    @logger.debug "components_from_jira"
 
     recon_tools = ReconTools.new(sheet_data, components_from_jira)
 
@@ -61,6 +64,6 @@ class ReconServices
 
     googlesheets_connect.write_column recon_tools.changelog, sheet_name, sheet_id, sheet_col_end
 
-    puts "ending e2e tests"
+    @logger.info "ending e2e tests in jira_googlesheets_reconcile_and_update"
   end
 end

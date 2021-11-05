@@ -84,6 +84,7 @@ class ReconToolsTest < Minitest::Test
   end
 
   def run_integration_tests()
+    @logger.info "Starting run_integration_tests"
     token = ENV['RECON_TOOLS_JIRA_TOKEN']
     email = ENV['RECON_TOOLS_JIRA_EMAIL']
     #if token="" or email= ""
@@ -91,15 +92,15 @@ class ReconToolsTest < Minitest::Test
     assert_not_equal nil, email, "email not set as environment variable"
     jira_connect = JiraConnect.new(email, token)
 
-    puts "run_integration_tests"
+    @logger.debug "run_integration_tests"
     components = jira_connect.get_jira_components
     #puts components
-    puts "run_integration_tests"
-    puts "run_integration_tests"
-    puts "run_integration_tests"
+    @logger.debug "run_integration_tests"
+    @logger.debug "run_integration_tests"
+    @logger.debug "run_integration_tests"
     components_from_jira = jira_connect.parseComponentsJSON(JSON.pretty_generate(components))
     components_from_jira = components_from_jira.each { |e| e.delete_at(0)}
-    puts "end run_integration_tests"
+    @logger.debug "end run_integration_tests"
 
     googlesheets_connect = GoogleSheetsConnect.new()
     sheet_data = googlesheets_connect.read_sheet_data "Recon Tools Test Data"
@@ -112,14 +113,16 @@ class ReconToolsTest < Minitest::Test
     #assert_equal components_from_jira, sheet_data, "compare sheets to JIRA"
 
     recon_tools = ReconTools.new(sheet_data, components_from_jira)
-    puts recon_tools.updated_array
-    puts ""
-    puts ""
-    puts recon_tools.changelog
-    puts ""
-    puts recon_tools.updates
+    @logger.debug recon_tools.updated_array
+    @logger.debug ""
+    @logger.debug ""
+    @logger.debug recon_tools.changelog
+    @logger.debug ""
+    @logger.debug recon_tools.updates
 
-    googlesheets_connect.update_specific_cells(recon_tools.updates, "Recon Tools Test Data", 1)
+    result = googlesheets_connect.update_specific_cells(recon_tools.updates, "Recon Tools Test Data", 1)
+    @logger.info "Completed run_integration_tests"
+    result
   end
 
 end
