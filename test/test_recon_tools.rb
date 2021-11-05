@@ -1,3 +1,4 @@
+require 'logging'
 require 'minitest/autorun'
 require "test/unit/assertions"
 require "recon_tools"
@@ -6,8 +7,16 @@ require "recon_tools/google_sheets_connect"
 
 include Test::Unit::Assertions
 
-
 class ReconToolsTest < Minitest::Test
+  #Logging.logger['ReconToolsTest'].level = :debug
+  @logger = Logging.logger(STDOUT)
+  @logger.level = :debug
+
+  def initialize(name)
+    super (name)
+      @logger = Logging.logger(STDOUT)
+  end
+
   def test_unit()
     arrays1 = [
       ["a", 1, 3],
@@ -52,7 +61,8 @@ class ReconToolsTest < Minitest::Test
       "New [\"e\", 9, 10]"
     ]
 
-    puts "Tests Starting"
+    @logger.info "Tests Starting"
+
     assert_equal "hello", "hello", 'Test the test'
     recon_tools = ReconTools.new(arrays1, arrays2)
     assert_equal [], recon_tools.duplicate_data1_records, "Should be 0 duplicates"
@@ -73,7 +83,7 @@ class ReconToolsTest < Minitest::Test
 
     assert_equal difflog, recon_tools.changelog, "Check changelog"
 
-    puts "Tests Completed"
+    @logger.info  "Tests Completed"
   end
 
   def run_integration_tests()
