@@ -8,13 +8,10 @@ require "recon_tools/google_sheets_connect"
 include Test::Unit::Assertions
 
 class ReconToolsTest < Minitest::Test
-  #Logging.logger['ReconToolsTest'].level = :debug
-  @logger = Logging.logger(STDOUT)
-  @logger.level = :debug
-
   def initialize(name)
     super (name)
       @logger = Logging.logger(STDOUT)
+      @logger.level = :debug
   end
 
   def test_unit()
