@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email                 = ['coder-chris-github@gmail.com']
   spec.summary               = 'recon_tools: Tools to support importing, exporting and reconciliation of data'
   spec.description           = 'recon_tools: Tools to support importing, exporting and reconciliation of data from JIRA, GoogleSheets and more..'
-  spec.homepage              = 'https://github.com/coder-chris/recon_recontool'
+  spec.homepage              = 'https://github.com/coder-chris/recon_tools'
   spec.license               = 'MIT'
   spec.platform              = Gem::Platform::RUBY
   spec.required_ruby_version = '>= 2.5.0'
