@@ -11,8 +11,8 @@ class ReconServices
     token = ENV['RECON_TOOLS_JIRA_TOKEN']
     email = ENV['RECON_TOOLS_JIRA_EMAIL']
     #if token="" or email= ""
-    assert_not_equal nil, token, "Token not set as environment variable"
-    assert_not_equal nil, email, "email not set as environment variable"
+    #assert_not_equal nil, token, "Token not set as environment variable"
+    #assert_not_equal nil, email, "email not set as environment variable"
     jira_connect = JiraConnect.new(email, token)
 
 
