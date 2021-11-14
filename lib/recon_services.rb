@@ -4,7 +4,7 @@ require 'logging'
 class ReconServices
   def initialize
     @logger = Logging.logger(STDOUT)
-    @logger.level = :info
+    @logger.level = :debug
   end
 
   def get_jira_data(company_url_base = "leadtechie", project = "TEST", jira_col_start, jira_col_end)
@@ -28,7 +28,7 @@ class ReconServices
   # Does a reconciliation of the data
   # Makes updates to the data on the sheet with the new data from JIRA
   # Rereads data from the sheet and confirms the same as from JIRA
-  def jira_googlesheets_reconcile_and_update(sheet_name, tab_number, sheet_col_start, sheet_col_end, copy_flag=false, write_change_log=false, google_credentials_file,
+  def jira_googlesheets_reconcile_and_update(sheet_name, tab_number, sheet_col_start, sheet_col_end, row_offset, copy_flag=false, write_change_log=false, google_credentials_file,
                                              company_url_base, project, jira_col_start, jira_col_end)
     @logger.info "Starting e2e tests in jira_googlesheets_reconcile_and_update"
     @logger.info "Connecting to JIRA and gets list of components_from_jira"
@@ -36,9 +36,11 @@ class ReconServices
     #puts Dir.pwd
     @logger.info "Connecting to GoogleSheets and reads list from matched_records"
     googlesheets_connect = GoogleSheetsConnect.new(google_credentials_file)
-    sheet_data = googlesheets_connect.read_sheet_data sheet_name, 0, 0, sheet_col_end
+    sheet_data = googlesheets_connect.read_sheet_data sheet_name, 0, row_offset, sheet_col_end
     sheet_data = sheet_data.map { |e| e[sheet_col_start..sheet_col_end]}
 
+    @logger.debug "row_offset "
+    @logger.debug row_offset  
     @logger.debug "sheet_data"
     @logger.debug sheet_data
     @logger.debug "sheet_data"
@@ -60,14 +62,14 @@ class ReconServices
     end
 
     @logger.info "Updating he data on the sheet with the new data from JIRA"
-    googlesheets_connect.update_specific_cells(recon_tools.updates, sheet_name, sheet_id, sheet_col_start)
+    googlesheets_connect.update_specific_cells(recon_tools.updates, sheet_name, sheet_id, sheet_col_start, row_offset)
 
     #sheet_data_new = googlesheets_connect.read_sheet_data sheet_name, sheet_id, 0, 5
     #sheet_data_new.each { |e| e.delete_at(0)}
     #assert_equal components_from_jira, sheet_data_new, "Compare updated data from sheet with JIRA"
 
     if write_change_log
-      googlesheets_connect.write_column recon_tools.changelog, sheet_name, sheet_id, sheet_col_end
+      googlesheets_connect.write_column recon_tools.changelog, sheet_name, sheet_id, sheet_col_end, row_offset
     end
 
     @logger.info "ending e2e tests in jira_googlesheets_reconcile_and_update"

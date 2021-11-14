@@ -8,7 +8,7 @@ require "google_docs"
 
 class GoogleSheetsConnect
   @session
-  def initialize(json_crednetials = "config/credentials.json")
+  def initialize(json_crednetials = "../credentials.json")
     #credentials = File.read("../config/credentials.json")
     #puts credentials
     @session = GoogleDrive::Session.from_service_account_key(json_crednetials)
@@ -31,45 +31,45 @@ class GoogleSheetsConnect
     spreadsheet.worksheets.length-1
   end
 
-  def insert_data(dataToInsert, sheetName)
+  def insert_data(dataToInsert, sheetName, row_offset=0)
     spreadsheet = @session.spreadsheet_by_title(sheetName)
     worksheet = spreadsheet.worksheets.first
 #    worksheet.rows.each { |row| puts row.first(6).join(" | ") }
 
-    worksheet.insert_rows(1 , dataToInsert)
+    worksheet.insert_rows(1+row_offset, dataToInsert)
     worksheet.save
   end
 
-  def update_data(data_to_insert, sheet_name, tabNumber=0)
+  def update_data(data_to_insert, sheet_name, tabNumber=0, row_offset=0)
     spreadsheet = @session.spreadsheet_by_title(sheet_name)
     worksheet = spreadsheet.worksheets[tabNumber]
 
     data_to_insert.each_with_index do |row, rowIndex|
       row.each_with_index do |value, colIndex|
-        worksheet[rowIndex+1, colIndex+1]= value
+        worksheet[rowIndex+1+row_offset, colIndex+1]= value
         puts "#{rowIndex}, #{colIndex} = #{value}"
       end
     end
     worksheet.save
   end
 
-  def update_specific_cells(data_to_insert, sheet_name, tabNumber=0, colOffset=0)
+  def update_specific_cells(data_to_insert, sheet_name, tabNumber=0, colOffset=0, row_offset=0)
     spreadsheet = @session.spreadsheet_by_title(sheet_name)
     worksheet = spreadsheet.worksheets[tabNumber]
 
     data_to_insert.each do |update|
-        worksheet[update[0]+1, update[1]+1+colOffset]= update[2]
+        worksheet[update[0]+1+row_offset, update[1]+1+colOffset]= update[2]
         #puts "#{row}, #{col} = #{value}"
     end
     worksheet.save
   end
 
-  def write_column(data_to_insert, sheet_name, tabNumber=0, colOffset=0)
+  def write_column(data_to_insert, sheet_name, tabNumber=0, colOffset=0, row_offset=0)
     spreadsheet = @session.spreadsheet_by_title(sheet_name)
     worksheet = spreadsheet.worksheets[tabNumber]
 
     data_to_insert.each_with_index do |value, index|
-        worksheet[index+1, 1+colOffset]= "#{DateTime::now} #{value} \n"+ worksheet[index+1, 1+colOffset]
+        worksheet[index+1+row_offset, 1+colOffset]= "#{DateTime::now} #{value} \n"+ worksheet[index+1+row_offset, 1+colOffset]
     end
     worksheet.save
   end
@@ -87,10 +87,15 @@ class GoogleSheetsConnect
       data.each do |row|
         data2 << row.first(columns)
       end
+      #puts data2.join(':')
+      #puts "dropping rows"
+      #puts skip_rows
+      #data2.drop(skip_rows)
+      #puts data2.join(':')
     else
       data2 = data
     end
-    data2
+    data2.drop(skip_rows)
   end
 
   def unfreeze_array(arrayIn2d)
