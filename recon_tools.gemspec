@@ -32,14 +32,6 @@ Gem::Specification.new do |spec|
     spec.add_development_dependency 'rails', ENV['TEST_RAILS_VERSION'].to_s
   end
 
-  spec.add_runtime_dependency 'google_drive', '~> 3.0.7'
-  spec.add_runtime_dependency 'net/http'
-  spec.add_runtime_dependency 'net/https'
-  spec.add_runtime_dependency 'uri'
-  spec.add_runtime_dependency 'date'
-  spec.add_runtime_dependency 'json'
-  spec.add_runtime_dependency 'google/apis/sheets_v4'
-  spec.add_runtime_dependency 'google_docs'
 
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.6'
