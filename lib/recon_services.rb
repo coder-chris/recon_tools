@@ -36,11 +36,11 @@ class ReconServices
     #puts Dir.pwd
     @logger.info "Connecting to GoogleSheets and reads list from matched_records"
     googlesheets_connect = GoogleSheetsConnect.new(google_credentials_file)
-    sheet_data = googlesheets_connect.read_sheet_data sheet_name, 0, row_offset, sheet_col_end
+    sheet_data = googlesheets_connect.read_sheet_data sheet_name, tab_number, row_offset, sheet_col_end
     sheet_data = sheet_data.map { |e| e[sheet_col_start..sheet_col_end]}
 
     @logger.debug "row_offset "
-    @logger.debug row_offset  
+    @logger.debug row_offset
     @logger.debug "sheet_data"
     @logger.debug sheet_data
     @logger.debug "sheet_data"
