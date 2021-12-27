@@ -1,7 +1,6 @@
 # recon_tools
  recon_tools: Tools to support importing, exporting and reconciliation of data from JIRA, GoogleSheets and more..
 
-
 ## Accessing Google sheets
 
  In order to access Google Sheets you need to provide credentials to the script.
