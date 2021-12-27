@@ -1,0 +1,21 @@
+:jbake-menu: intro
+:jbake-order: 20
+:jbake-title: Architecture
+
+== Architecture
+
+ifndef::imagesdir[:imagesdir: ../images/]
+
+.basic overview
+image::demo.dio.png[]
+
+ifndef::projectRootDir[:projectRootDir: ../../..]
+
+{projectRootDir}
+
+[source,ruby]
+----
+include::{projectRootDir}/test/test_recon_tools.rb[tags=myTest]
+----
+<1> describe
+
