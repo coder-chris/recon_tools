@@ -26,37 +26,36 @@ Download the file and rename it to credentials.json and put at the same level as
 
 #### Full Click by click details for creating credentials.json files
 
-Goto Google Cloud Console:
-Create Project by clicking
-https://console.cloud.google.com/projectcreate
-Enter Project name: ReconToolsAccessProject
-https://console.cloud.google.com/home/dashboard?project=recontoolsaccessproject (URL needs updating with your project name)
-https://console.cloud.google.com/apis/dashboard?project=recontoolsaccessproject (URL needs updating with your project name)
-https://console.cloud.google.com/apis/library?project=recontoolsaccessproject
-Enter "Google sheets" and click search
-Then click on Google Sheets
-Click on "Enable"
-https://console.cloud.google.com/apis/library?project=recontoolsaccessproject
-Enter "Google Drive" and click search
-Then click on "Google Drive API"
-Click on "Enable"
-Click Back to main menu for project: https://console.cloud.google.com/home/dashboard?project=recontoolsaccessproject
-Click on "APIS and services": https://console.cloud.google.com/apis/dashboard?project=recontoolsaccessproject
-Click "Credentials" in menu on left
-Click "+ Create Credentials"
-Click "Manage Service Accounts"
-Click "Create Service Account"
-Enter Service Name: "recontoolsaccessprojectemail"
-Click "Create and Continue"
-Select a role: In Quick Access select "Basic" then select "Editor" on right hand menu
-Click "Continue"
-Leave 3 "Grant users access to this service account (optional)" blank and click "Done"
-Click on the newly created service account
-Click "Keys"
-Click "Add Key" -> "Create New Key"
-Select "JSON"
-Click "Create"
-Download the file and rename it to credentials.json and put at the same level as the recon_tools directory.
+- Goto Google Cloud Console:
+- Create Project by clicking https://console.cloud.google.com/projectcreate
+- Enter Project name: ReconToolsAccessProject
+- https://console.cloud.google.com/home/dashboard?project=recontoolsaccessproject (URL needs updating with your project name)
+- https://console.cloud.google.com/apis/dashboard?project=recontoolsaccessproject (URL needs updating with your project name)
+- https://console.cloud.google.com/apis/library?project=recontoolsaccessproject
+- Enter "Google sheets" and click search
+- Then click on Google Sheets
+- Click on "Enable"
+- https://console.cloud.google.com/apis/library?project=recontoolsaccessproject
+- Enter "Google Drive" and click search
+- Then click on "Google Drive API"
+- Click on "Enable"
+- Click Back to main menu for project: https://console.cloud.google.com/home/dashboard?project=recontoolsaccessproject
+- Click on "APIS and services": https://console.cloud.google.com/apis/dashboard?project=recontoolsaccessproject
+- Click "Credentials" in menu on left
+- Click "+ Create Credentials"
+- Click "Manage Service Accounts"
+- Click "Create Service Account"
+- Enter Service Name: "recontoolsaccessprojectemail"
+- Click "Create and Continue"
+- Select a role: In Quick Access select "Basic" then select "Editor" on right hand menu
+- Click "Continue"
+- Leave 3 "Grant users access to this service account (optional)" blank and click "Done"
+- Click on the newly created service account
+- Click "Keys"
+- Click "Add Key" -> "Create New Key"
+- Select "JSON"
+- Click "Create"
+- Download the file and rename it to credentials.json and put at the same level as the recon_tools directory.
 
 ### Give Access To The Specific Sheet
 
