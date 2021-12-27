@@ -1,0 +1,8 @@
+:jbake-menu: intro
+:jbake-order: 10
+:jbake-title: Readme
+
+
+include::../../README.adoc[leveloffset=+1]
+
+add some more info

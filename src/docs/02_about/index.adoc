@@ -1,0 +1,7 @@
+:jbake-menu: about
+:jbake-order: 10
+:jbake-title: About
+
+== About this project
+
+lorem ipsum
