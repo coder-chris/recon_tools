@@ -54,4 +54,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rake'
   spec.add_development_dependency 'simplecov', '~> 0.16'
   spec.add_development_dependency 'vcr', '~> 6.0'
+  spec.add_development_dependency 'asciidoctor'
+  spec.add_development_dependency 'asciidoctor-diagram'
 end

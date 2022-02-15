@@ -51,3 +51,4 @@ build-iPhoneSimulator/
 .rvmrc
 .DS_Store
 credentials.json
+out
