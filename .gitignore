@@ -52,3 +52,4 @@ build-iPhoneSimulator/
 .DS_Store
 credentials.json
 out
+lib/recon_tools/.DS_Store
