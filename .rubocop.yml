@@ -1,0 +1,10 @@
+inherit_from: .rubocop_todo.yml
+
+require: rubocop-rake
+
+AllCops:
+  NewCops: enable
+
+Rake/Desc:
+  # Not every task needs to be visible to the casual user
+  Enabled: false

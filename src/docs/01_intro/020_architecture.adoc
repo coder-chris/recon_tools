@@ -19,3 +19,16 @@ include::{projectRootDir}/test/test_recon_tools.rb[tags=myTest]
 ----
 <1> describe
 
+[plantuml, target=diagram_test1, format=png]
+....
+class ReconServices
+class ReconTools
+class GoogleSheetsConnect
+class JiraConnect
+....
+
+[plantuml, target=diagram_test2, format=png]
+....
+!include <c4/C4_Container.puml>
+Container(recon_services,"ReconServices","","")
+....
