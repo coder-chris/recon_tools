@@ -10,7 +10,7 @@ task :test do
 end
 
 desc "Run e2e Test Manually"
-task :e2e2 do
+task :e2e do
   ruby "./test/e2e_test_recon_tools.rb"
 end
 
