@@ -15,6 +15,25 @@ class ReconToolsTest < Minitest::Test
   end
 
   def test_unit()
+    arraysdataJIRA = [
+      ["componentid1", "component name1", "component owner1"], #unchanged
+      ["componentid2", "component name2", "component owner2"], # new
+      ["componentid3", "component name3", "UPDATED"],        #updated
+      # new one from Google Sheets that doesn't exist in JIRA
+      ["componentid5", "component name5", "component owner5"],  #duplicate
+      ["componentid5", "component name5", "component owner5"]  #duplicate
+    ]
+
+    arraysdataGoogleSheets = [
+      ["componentid1", "component name1", "component owner1"],  #unchanged
+      # new one from JIRA id2
+      ["componentid3", "component name3", "component owner3"],
+      ["componentid4", "component name4", "component owner4"],
+      ["componentid6", "component name6", "component owner6"], #duplicate
+      ["componentid6", "component name6", "component owner6"]  #duplicate
+    ]
+
+
     arrays1 = [
       ["a", 1, 3],
       ["b", 2, 4],
