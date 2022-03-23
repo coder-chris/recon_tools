@@ -9,8 +9,6 @@ RSpec.describe 'ReconTools' do
     ['componentid2', 'component name2', 'component owner2'], # new
     ['componentid3', 'component name3', 'UPDATED'], # updated
     # new one from Google Sheets that doesn't exist in JIRA
-    ['componentid5', 'component name5', 'component owner5'], # duplicate
-    ['componentid5', 'component name5', 'component owner5'] # duplicate
   ]
 
   arrays_data_googlesheets = [
@@ -30,8 +28,14 @@ RSpec.describe 'ReconTools' do
     end
 
     context '#duplicate_data1_records' do
-      it "should return 0 if no duplicates are found" do
-        expect(subject.duplicate_data1_records).to eq 0
+      it "should return empty array if no duplicates are found" do
+        expect(subject.duplicate_data1_records).to be_empty
+      end
+    end
+
+    context '#duplicate_data2_records' do
+      it "should return an array of the duplicate arrays" do
+        expect(subject.duplicate_data2_records).to eq [['componentid6', 'component name6', 'component owner6']]
       end
     end
 

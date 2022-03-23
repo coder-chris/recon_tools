@@ -1,6 +1,12 @@
 require 'rake/testtask'
 require './lib/recon_tools'
 
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+end
+
 task :test do
   Rake::TestTask.new do |t|
     t.pattern = 'test/**/test_*.rb'

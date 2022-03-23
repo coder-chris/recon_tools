@@ -126,11 +126,10 @@ class GoogleSheetsConnect
     worksheet.rows.each { |row| puts row.first(6).join(" | ") }
 
     worksheet.insert_rows(worksheet.num_rows + 1 ,
-    [
-      ["col1", "col2"],
-      ["col2", "col3"]
-    ]
-    )
+                          [["col1", "col2"],
+                           ["col2", "col3"]
+                          ]
+                         )
 
     worksheet.save
     worksheet["C5"] = "updated"
